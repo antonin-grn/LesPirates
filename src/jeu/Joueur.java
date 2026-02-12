@@ -1,12 +1,10 @@
 package jeu;
 
 public class Joueur {
-	private String nom;
 	private int coeurs = 5;
 	private Pion pion;
 	
-	public Joueur(String nom, Pion pion) {
-		this.nom = nom;
+	public Joueur(Pion pion) {
 		this.pion = pion;
 	}
 	
@@ -15,6 +13,12 @@ public class Joueur {
 	}
 	
 	public void deplacerPion(int nbCases) {
-		
+		Case caseActuelle = pion.getCaseActuelle();
+		caseActuelle.setNumero(caseActuelle.getNumero() + nbCases);
 	}
+	
+	public Pion getPion() {
+		return pion;
+	}
+	
 }

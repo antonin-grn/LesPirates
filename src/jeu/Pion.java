@@ -4,8 +4,16 @@ public class Pion {
 	private Couleur couleur;
 	private Case caseActuelle;
 	
-	public Pion (Couleur couleur, Case caseActuelle) {
+	public Pion (Couleur couleur) {
 		this.couleur = couleur;
-		this.caseActuelle = caseActuelle;
+		caseActuelle = new Case();
+	}
+	
+	public Case getCaseActuelle() {
+		return caseActuelle;
+	}
+	
+	public Couleur getCouleur() {
+		return couleur;
 	}
 }

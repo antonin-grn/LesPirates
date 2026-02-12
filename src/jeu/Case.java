@@ -1,9 +1,14 @@
 package jeu;
 
 public class Case {
-	private int numero;
+	private int numero = 0;
 	
-	public Case (int numero) {
+	
+	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+	
+	public int getNumero() {
+		return numero;
 	}
 }

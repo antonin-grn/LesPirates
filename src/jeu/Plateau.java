@@ -11,5 +11,7 @@ public class Plateau {
 		this.cases = cases;
 	}
 	
-	
+	public int lancerDes() {
+		return de1.lancerDe() + de2.lancerDe();
+	}
 }
