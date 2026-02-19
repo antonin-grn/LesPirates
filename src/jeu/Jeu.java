@@ -7,19 +7,22 @@ public class Jeu {
 	private Affichage journal;
 	private Plateau plateau;
 	
-	public Jeu (Joueur joueur1, Joueur joueur2, Affichage journal, Plateau plateau) {
-		this.joueur1 = joueur1;
-		this.joueur2 = joueur2;
+	public Jeu (Affichage journal) {
 		this.journal = journal;
-		this.plateau = plateau;
 	}
 	
 	public void commencerJeu(){
+		
 		Pion pion1 = new Pion(Couleur.BLEU);
 		Pion pion2 = new Pion(Couleur.ROUGE);
 		
-		Joueur joueur1 = new Joueur(pion1);
-		Joueur joueur2 = new Joueur(pion2);
+		joueur1 = new Joueur(pion1);
+		joueur2 = new Joueur(pion2);
+		
+		De de1 = new De(6);
+		De de2 = new De(6);
+		
+		plateau = new Plateau(de1, de2);
 		
 		journal.annonceDebutJeu();
 		
@@ -34,26 +37,39 @@ public class Jeu {
 	
 	public void debutTour(Joueur joueur) {
 		journal.annonceDebutTour(joueur);
+		
+		Effets effet = joueur.getEffet();
+		switch(effet) {
+		case Effets.RHUM:
+			joueur.boireRhum();
+		case Effets.PACTE:
+			joueur.pactiser();
+		}
+		
 		int deplacement = plateau.lancerDes();
 		journal.annonceDeplacement(joueur, joueur.getPion(), deplacement);
 		joueur.deplacerPion(deplacement);
-		journal.annonceArriverCase(joueur.getPion(), joueur.getPion().getCaseActuelle());	
+		journal.annonceArriverCase(joueur.getPion(), joueur.getPion().getCaseActuelle());
+		
+		joueur.setEffet(plateau.getCases()[joueur.getPion().getCaseActuelle()]);	
+		journal.annonceEffetCase(joueur.getPion().getCaseActuelle(), joueur.getEffet(), joueur);
+		
 		}
 	
 	public boolean verifierFinJeu(){
 		Pion pion1 = joueur1.getPion();
 		Pion pion2 = joueur2.getPion();
 		
-		Case casePion1 = pion1.getCaseActuelle();
-		Case casePion2 = pion2.getCaseActuelle();
+		int casePion1 = pion1.getCaseActuelle();
+		int casePion2 = pion2.getCaseActuelle();
 		
-		if (casePion1.getNumero() == 29) {
+		if (casePion1 == 29) {
 			gagnant = joueur1;
 		}
-		else if (casePion2.getNumero() == 29) {
+		else if (casePion2 == 29) {
 			gagnant = joueur2;
 		}
 		
-		return (casePion1.getNumero() == 29 || casePion2.getNumero() == 29);
+		return (casePion1 == 29 || casePion2 == 29);
 	}
 }
