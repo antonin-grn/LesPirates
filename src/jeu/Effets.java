@@ -1,5 +1,5 @@
 package jeu;
 
 public enum Effets {
-	RHUM, PACTE
+	RHUM, PACTE, AUCUN
 }

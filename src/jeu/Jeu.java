@@ -23,12 +23,19 @@ public class Jeu {
 		De de2 = new De(6);
 		
 		plateau = new Plateau(de1, de2);
+		joueur1.setDes(de1, de2);
+		joueur2.setDes(de1, de2);
+		
+		plateau.placerEffets();
 		
 		journal.annonceDebutJeu();
 		
 		while (!verifierFinJeu()) {
 			debutTour(joueur1);
-			debutTour(joueur2);
+			
+			if(!verifierFinJeu()) {
+				debutTour(joueur2);
+			}
 		}
 		
 		journal.annonceGagnant(gagnant);
@@ -37,16 +44,18 @@ public class Jeu {
 	
 	public void debutTour(Joueur joueur) {
 		journal.annonceDebutTour(joueur);
-		
+		int deplacement;
 		Effets effet = joueur.getEffet();
+		
 		switch(effet) {
 		case Effets.RHUM:
-			joueur.boireRhum();
+			deplacement = joueur.boireRhum();
 		case Effets.PACTE:
-			joueur.pactiser();
+			deplacement = joueur.pactiser();
+		default:
+			deplacement = joueur.lancerDes();
 		}
 		
-		int deplacement = plateau.lancerDes();
 		journal.annonceDeplacement(joueur, joueur.getPion(), deplacement);
 		joueur.deplacerPion(deplacement);
 		journal.annonceArriverCase(joueur.getPion(), joueur.getPion().getCaseActuelle());
