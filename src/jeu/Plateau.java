@@ -31,31 +31,34 @@ public class Plateau {
 	}
 	
 	public void placerEffets() {
-		try {
-			random = SecureRandom.getInstanceStrong();
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
-		
-		int caseRhum = 3;
-		int casePacte = 3;
-		
-		do {
-			int numCaseRhum = random.nextInt(1, 29);
-			int numCasePacte = random.nextInt(1, 29);
-					
-			if(caseRhum !=0 && cases[numCaseRhum] == Effets.AUCUN) {
-				cases[numCaseRhum] = Effets.RHUM;
-				caseRhum --;
-			}
-			
-			if(casePacte !=0 && cases[numCasePacte] == Effets.AUCUN) {
-				cases[numCasePacte] = Effets.PACTE;
-				casePacte --;
-			}
-			
-			
-					
-		} while(caseRhum != 0 || casePacte != 0);
+	    try {
+	        random = SecureRandom.getInstanceStrong();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    int caseRhum = 3;
+	    int casePacte = 3;
+
+	    do {
+	        if (caseRhum != 0) {
+	            int numCaseRhum = random.nextInt(1, 29);
+	            if (cases[numCaseRhum] == Effets.AUCUN) {
+	                cases[numCaseRhum] = Effets.RHUM;
+	                caseRhum--;
+	            }
+	        }
+
+	        if (casePacte != 0) {
+	            int numCasePacte = random.nextInt(1, 29);
+	            if (cases[numCasePacte] == Effets.AUCUN) {
+	                cases[numCasePacte] = Effets.PACTE;
+	                casePacte--;
+	            }else {
+	                System.out.println("Case " + numCasePacte + " déjà occupée par : " + cases[numCasePacte]);
+	            }
+	        }
+
+	    } while (caseRhum != 0 || casePacte != 0);
 	}
 }

@@ -31,13 +31,13 @@ public class Jeu {
 		journal.annonceDebutJeu();
 		
 		while (!verifierFinJeu()) {
-			debutTour(joueur1);
-			
-			if(!verifierFinJeu()) {
-				debutTour(joueur2);
-			}
+		    debutTour(joueur1);
+
+		    if (!verifierFinJeu()) {
+		        debutTour(joueur2);
+		    }
 		}
-		
+
 		journal.annonceGagnant(gagnant);
 	}
 	
@@ -50,10 +50,13 @@ public class Jeu {
 		switch(effet) {
 		case Effets.RHUM:
 			deplacement = joueur.boireRhum();
+			break;
 		case Effets.PACTE:
 			deplacement = joueur.pactiser();
+			break;
 		default:
 			deplacement = joueur.lancerDes();
+			break;
 		}
 		
 		journal.annonceDeplacement(joueur, joueur.getPion(), deplacement);
@@ -79,6 +82,27 @@ public class Jeu {
 			gagnant = joueur2;
 		}
 		
+		Joueur mort = joueurMort();
+		
+	    if (mort != null && gagnant == null) {
+	        journal.annonceMort(mort);
+	        return true;
+	    }
+		
 		return (casePion1 == 29 || casePion2 == 29);
+	}
+	
+	public Joueur joueurMort() {
+	    if (joueur1.getCoeurs() <= 0) {
+	        gagnant = joueur2;
+	        return joueur1;
+	        
+	    } else if (joueur2.getCoeurs() <= 0) {
+	        gagnant = joueur1;
+	        return joueur2;
+	        
+	    }
+	    
+	    return null;
 	}
 }

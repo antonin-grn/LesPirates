@@ -8,4 +8,5 @@ public interface Affichage {
 	void annonceArriverCase(Pion pion, int caseActuelle);
 	void annonceEffetCase(int caseActuelle, Effets effetCase, Joueur joueur);
 	void annonceCoeursPerdus(Joueur joueur, int valeur);
+	void annonceMort(Joueur joueur);
 }

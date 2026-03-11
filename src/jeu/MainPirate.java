@@ -7,5 +7,4 @@ public class MainPirate {
 		jeu.commencerJeu();
 	}
 			
-	
 }

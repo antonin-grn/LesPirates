@@ -64,7 +64,8 @@ public class Journal implements Affichage {
 			}
 			else {
 				System.out.println(nomJoueur2 + " s'est enquillé un flash. Il a récupéré 1 coeur mais il reculera de la valeur de ses dés au prochain tour.");
-			} 
+			}
+			break;
 		}
 		
 		case Effets.PACTE: {		
@@ -75,10 +76,12 @@ public class Journal implements Affichage {
 			else {
 				System.out.println(nomJoueur2 + " A DECIDE DE PACTER AVEC BAALBERITH. Ce pacte lui permet de lancer un dé supplémentaire au prochain tour.");
 				annonceCoeursPerdus(joueur, 2);
-			} 
+			}
+			break;
 		}
 		
 		default:
+			break;
 		}
 	}
 
@@ -92,5 +95,18 @@ public class Journal implements Affichage {
 		else {
 			System.out.println(nomJoueur2 + " a perdu " + valeur + " coeur(s).");
 		}
+	}
+	
+	@Override
+	public void annonceMort(Joueur joueur) {
+		Pion pionActuel = joueur.getPion();
+		
+		if (pionActuel.getCouleur() == Couleur.BLEU) {
+			System.out.println(nomJoueur1 + "est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
+		}
+		else {
+			System.out.println(nomJoueur2 + "est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
+		}
+		
 	}
 }

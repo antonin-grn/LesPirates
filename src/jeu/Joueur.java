@@ -49,13 +49,15 @@ public class Joueur {
 		}
 		De de3 = new De(6);
 		int resultat = lancerDes() + de3.lancerDe();
-		System.out.println(resultat);
+		//System.out.println(resultat);
 		return resultat;
 	}
 	
 	public int lancerDes() {
 		lancerDe1 = de1.lancerDe();
 		lancerDe2 = de2.lancerDe();
+		//System.out.println(lancerDe1);
+		//System.out.println(lancerDe2);
 		return lancerDe1 + lancerDe2;
 	}
 	
@@ -67,6 +69,8 @@ public class Joueur {
 		return effet;
 	}
 	
-	
+	public int getCoeurs() {
+		return coeurs;
+	}
 	
 }
