@@ -10,7 +10,7 @@ public class Pion {
 	
 	public void setCaseActuelle(int caseActuelle) {
 		if (caseActuelle < 1) {
-	        this.caseActuelle = 1;
+	        this.caseActuelle = 0;
 	    } else {
 	        this.caseActuelle = caseActuelle;
 	    }

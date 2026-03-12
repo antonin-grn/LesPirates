@@ -54,8 +54,6 @@ public class Plateau {
 	            if (cases[numCasePacte] == Effets.AUCUN) {
 	                cases[numCasePacte] = Effets.PACTE;
 	                casePacte--;
-	            }else {
-	                System.out.println("Case " + numCasePacte + " déjà occupée par : " + cases[numCasePacte]);
 	            }
 	        }
 

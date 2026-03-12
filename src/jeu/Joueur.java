@@ -7,6 +7,7 @@ public class Joueur {
 	private De de2;
 	private int lancerDe1;
 	private int lancerDe2;
+	private int lancerDe3;
 	private Effets effet = Effets.AUCUN;
 	
 	public Joueur(Pion pion) {
@@ -44,11 +45,10 @@ public class Joueur {
 	}
 	
 	public int pactiser() {
-		if (coeurs > 0) {
-			coeurs --;
-		}
+		coeurs = coeurs - 2;
 		De de3 = new De(6);
-		int resultat = lancerDes() + de3.lancerDe();
+		lancerDe3 = de3.lancerDe();
+		int resultat = lancerDes() + lancerDe3;
 		//System.out.println(resultat);
 		return resultat;
 	}
@@ -59,6 +59,10 @@ public class Joueur {
 		//System.out.println(lancerDe1);
 		//System.out.println(lancerDe2);
 		return lancerDe1 + lancerDe2;
+	}
+	
+	public boolean estMort() {
+		return coeurs == 0;
 	}
 	
 	public Pion getPion() {
@@ -73,4 +77,15 @@ public class Joueur {
 		return coeurs;
 	}
 	
+	public int getLancerDe1() {
+		return lancerDe1;
+	}
+	
+	public int getLancerDe2() {
+		return lancerDe2;
+	}
+	
+	public int getLancerDe3() {
+		return lancerDe3;
+	}
 }

@@ -9,4 +9,6 @@ public interface Affichage {
 	void annonceEffetCase(int caseActuelle, Effets effetCase, Joueur joueur);
 	void annonceCoeursPerdus(Joueur joueur, int valeur);
 	void annonceMort(Joueur joueur);
+	void annonceResultatsDes(Joueur joueur, Effets effetCase);
+	void passerTourSuivant();
 }

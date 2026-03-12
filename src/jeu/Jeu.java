@@ -1,11 +1,14 @@
 package jeu;
 
+import java.util.Scanner;
+
 public class Jeu {
 	private Joueur joueur1;
 	private Joueur joueur2;
 	private Joueur gagnant;
 	private Affichage journal;
 	private Plateau plateau;
+	private boolean mort;
 	
 	public Jeu (Affichage journal) {
 		this.journal = journal;
@@ -30,14 +33,31 @@ public class Jeu {
 		
 		journal.annonceDebutJeu();
 		
+		Scanner scanner = new Scanner(System.in);
+		
 		while (!verifierFinJeu()) {
 		    debutTour(joueur1);
+		    if (!verifierFinJeu()) {
+		    	journal.passerTourSuivant();
+			    scanner.nextLine();
+		    }
 
 		    if (!verifierFinJeu()) {
 		        debutTour(joueur2);
+		        if (!verifierFinJeu()) {
+			    	journal.passerTourSuivant();
+				    scanner.nextLine();
+			    }
 		    }
+		    
 		}
-
+		
+		if (joueur1.estMort() == true) {
+			journal.annonceMort(joueur1);
+		} else if (joueur2.estMort()) {
+			journal.annonceMort(joueur2);
+		}
+		
 		journal.annonceGagnant(gagnant);
 	}
 	
@@ -59,6 +79,7 @@ public class Jeu {
 			break;
 		}
 		
+		journal.annonceResultatsDes(joueur, joueur.getEffet());
 		journal.annonceDeplacement(joueur, joueur.getPion(), deplacement);
 		joueur.deplacerPion(deplacement);
 		journal.annonceArriverCase(joueur.getPion(), joueur.getPion().getCaseActuelle());
@@ -82,27 +103,17 @@ public class Jeu {
 			gagnant = joueur2;
 		}
 		
-		Joueur mort = joueurMort();
-		
-	    if (mort != null && gagnant == null) {
-	        journal.annonceMort(mort);
+		if (joueur1.getCoeurs() <= 0) {
+	        gagnant = joueur2;
 	        return true;
+	        
+	    } else if (joueur2.getCoeurs() <= 0) {
+	        gagnant = joueur1;
+	        return true;
+	        
 	    }
 		
 		return (casePion1 == 29 || casePion2 == 29);
 	}
 	
-	public Joueur joueurMort() {
-	    if (joueur1.getCoeurs() <= 0) {
-	        gagnant = joueur2;
-	        return joueur1;
-	        
-	    } else if (joueur2.getCoeurs() <= 0) {
-	        gagnant = joueur1;
-	        return joueur2;
-	        
-	    }
-	    
-	    return null;
-	}
 }

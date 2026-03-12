@@ -16,11 +16,11 @@ public class Journal implements Affichage {
 		
 		if (pionActuel.getCouleur() == Couleur.BLEU) {
 			System.out.println(" ");
-			System.out.println("C'est au tour de " + nomJoueur1 + " de lancer les dés.");
+			System.out.println("C'est au tour de " + nomJoueur1 + " (" + joueur.getCoeurs() +" coeurs) de lancer les dés.");
 		}
 		else {
 			System.out.println(" ");
-			System.out.println("C'est au tour de " + nomJoueur2 + " de lancer les dés.");
+			System.out.println("C'est au tour de " + nomJoueur2 + " (" + joueur.getCoeurs() +" coeurs) de lancer les dés.");
 		}
 	}
 
@@ -57,13 +57,22 @@ public class Journal implements Affichage {
 	@Override
 	public void annonceEffetCase(int caseActuelle, Effets effetCase, Joueur joueur) {
 		Pion pionActuel = joueur.getPion();
+		
 		switch (effetCase) {
-		case Effets.RHUM: {	
-			if (pionActuel.getCouleur() == Couleur.BLEU) {
-				System.out.println(nomJoueur1 + " s'est enquillé un flash. Il a récupéré 1 coeur mais il reculera de la valeur de ses dés au prochain tour.");
+		case Effets.RHUM: {
+			if (joueur.getCoeurs() < 5) {
+				if (pionActuel.getCouleur() == Couleur.BLEU) {
+					System.out.println(nomJoueur1 + " s'est enquillé un flash. Il a récupéré 1 coeur mais il reculera de la valeur de ses dés au prochain tour.");
+				}
+				else {
+					System.out.println(nomJoueur2 + " s'est enquillé un flash. Il a récupéré 1 coeur mais il reculera de la valeur de ses dés au prochain tour.");
+				}
+			}
+			else if (pionActuel.getCouleur() == Couleur.BLEU) {
+				System.out.println(nomJoueur1 + " s'est enquillé un flash. Il reculera de la valeur de ses dés au prochain tour. Il ne peut pas récupérer un coeur supplémentaire car il en possède déjà 5.");
 			}
 			else {
-				System.out.println(nomJoueur2 + " s'est enquillé un flash. Il a récupéré 1 coeur mais il reculera de la valeur de ses dés au prochain tour.");
+				System.out.println(nomJoueur2 + " s'est enquillé un flash. Il reculera de la valeur de ses dés au prochain tour. Il ne peut pas récupérer un coeur supplémentaire car il en possède déjà 5.");
 			}
 			break;
 		}
@@ -102,11 +111,36 @@ public class Journal implements Affichage {
 		Pion pionActuel = joueur.getPion();
 		
 		if (pionActuel.getCouleur() == Couleur.BLEU) {
-			System.out.println(nomJoueur1 + "est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
+			System.out.println(nomJoueur1 + " est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
 		}
 		else {
-			System.out.println(nomJoueur2 + "est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
+			System.out.println(nomJoueur2 + " est mort d'attroce souffrance car il n'était pas assez puissant pour supporter tous les PACTES !");
 		}
 		
+	}
+	
+	@Override
+	public void annonceResultatsDes(Joueur joueur, Effets effetCase) {
+		Pion pionActuel = joueur.getPion();
+		
+		if (effetCase != Effets.PACTE) {
+			if (pionActuel.getCouleur() == Couleur.BLEU) {
+				System.out.println(nomJoueur1 + " lance les dés et obtient " + joueur.getLancerDe1() + " et " + joueur.getLancerDe2() + ".");
+			}
+			else {
+				System.out.println(nomJoueur2 + " lance les dés et obtient " + joueur.getLancerDe1() + " et " + joueur.getLancerDe2() + ".");
+			}
+		}
+		else if (pionActuel.getCouleur() == Couleur.BLEU) {
+				System.out.println(nomJoueur1 + " lance les dés et obtient " + joueur.getLancerDe1() + ", " + joueur.getLancerDe2() + " et " + joueur.getLancerDe3() + ".");
+			}
+			else {
+				System.out.println(nomJoueur2 + " lance les dés et obtient " + joueur.getLancerDe1() + ", " + joueur.getLancerDe2() + " et " + joueur.getLancerDe3() + ".");
+			} 
+	}
+	
+	@Override
+	public void passerTourSuivant() {
+		System.out.println("Appuyer sur 'entrer' pour passer au tour suivant..");
 	}
 }
