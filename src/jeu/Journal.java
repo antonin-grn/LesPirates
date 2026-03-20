@@ -1,13 +1,18 @@
 package jeu;
 
+import java.util.Scanner;
+
 public class Journal implements Affichage {
 	private String nomJoueur1 = "Basile le tueur de Bulgare";
 	private String nomJoueur2 = "Nicéphore la Mort Pâle des Sarrasins";
+	private Scanner scanner = new Scanner(System.in);
 	
 
 	@Override
 	public void annonceDebutJeu() {
 		System.out.println("Bienvenue dans le jeu des pirates ! Je suis le Maître du jeu et je vais vous guider durant toute la partie HAHAHA ! Dans ce jeu, vous allez devenir de vrai pirate impitoyable prêt à tout pour récupérer le trésor.");
+		System.out.println("Appuyer sur 'entrer' pour lancer la partie.");
+		scanner.nextLine();
 	}
 
 	@Override
@@ -142,5 +147,6 @@ public class Journal implements Affichage {
 	@Override
 	public void passerTourSuivant() {
 		System.out.println("Appuyer sur 'entrer' pour passer au tour suivant..");
+		scanner.nextLine();
 	}
 }

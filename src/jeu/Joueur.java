@@ -37,32 +37,40 @@ public class Joueur {
 	}
 	
 	public int boireRhum() {
-		if (coeurs < 5) {
-			coeurs ++;
-		}
 		int resultat = lancerDes();
 		return -resultat;
 	}
 	
 	public int pactiser() {
-		coeurs = coeurs - 2;
 		De de3 = new De(6);
 		lancerDe3 = de3.lancerDe();
 		int resultat = lancerDes() + lancerDe3;
-		//System.out.println(resultat);
 		return resultat;
 	}
 	
 	public int lancerDes() {
 		lancerDe1 = de1.lancerDe();
 		lancerDe2 = de2.lancerDe();
-		//System.out.println(lancerDe1);
-		//System.out.println(lancerDe2);
 		return lancerDe1 + lancerDe2;
 	}
 	
+	public void gestionCoeurs() {
+	    switch(effet) {
+	        case Effets.PACTE:
+	            coeurs = coeurs - 2;
+	            break;
+	        case Effets.RHUM:
+	        	if (coeurs < 5) {
+	    			coeurs ++;
+	    		}
+	            break;
+	        default:
+	            break;
+	    }
+	}
+	
 	public boolean estMort() {
-		return coeurs == 0;
+		return coeurs <= 0;
 	}
 	
 	public Pion getPion() {

@@ -1,7 +1,5 @@
 package jeu;
 
-import java.util.Scanner;
-
 public class Jeu {
 	private Joueur joueur1;
 	private Joueur joueur2;
@@ -33,37 +31,26 @@ public class Jeu {
 		
 		journal.annonceDebutJeu();
 		
-		Scanner scanner = new Scanner(System.in);
 		
 		while (!verifierFinJeu()) {
 		    debutTour(joueur1);
 		    if (!verifierFinJeu()) {
-		    	journal.passerTourSuivant();
-			    scanner.nextLine();
+		    	journal.passerTourSuivant();			    
 		    }
 
 		    if (!verifierFinJeu()) {
 		        debutTour(joueur2);
 		        if (!verifierFinJeu()) {
 			    	journal.passerTourSuivant();
-				    scanner.nextLine();
 			    }
 		    }
 		    
-		}
-		
-		if (joueur1.estMort() == true) {
-			journal.annonceMort(joueur1);
-		} else if (joueur2.estMort()) {
-			journal.annonceMort(joueur2);
-		}
-		
+		}	
 		journal.annonceGagnant(gagnant);
 	}
 	
 	
 	public void debutTour(Joueur joueur) {
-		journal.annonceDebutTour(joueur);
 		int deplacement;
 		Effets effet = joueur.getEffet();
 		
@@ -79,6 +66,8 @@ public class Jeu {
 			break;
 		}
 		
+		journal.annonceDebutTour(joueur);
+		
 		journal.annonceResultatsDes(joueur, joueur.getEffet());
 		journal.annonceDeplacement(joueur, joueur.getPion(), deplacement);
 		joueur.deplacerPion(deplacement);
@@ -87,9 +76,22 @@ public class Jeu {
 		joueur.setEffet(plateau.getCases()[joueur.getPion().getCaseActuelle()]);	
 		journal.annonceEffetCase(joueur.getPion().getCaseActuelle(), joueur.getEffet(), joueur);
 		
+		joueur.gestionCoeurs();
+		
+		if (joueur.estMort()) {
+		    journal.annonceMort(joueur);
+		    if (joueur == joueur1) {
+		        gagnant = joueur2;
+		    } else {
+		        gagnant = joueur1;
+		    }
+		    mort = true;
 		}
+	}
 	
 	public boolean verifierFinJeu(){
+		if (mort) return true;
+		
 		Pion pion1 = joueur1.getPion();
 		Pion pion2 = joueur2.getPion();
 		
